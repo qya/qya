@@ -153,6 +153,7 @@ VpaidNonLinear.prototype.startAd = function() {
   container.style.position = 'absolute';
   container.style.width = '100%';
   container.style.bottom = '0%';
+  container.style.marginBottom = '1%';
   this.slot_.appendChild(container);
 
   // Create a div to serve as a button to go from a non-linear ad to linear.
