@@ -147,14 +147,16 @@ VpaidNonLinear.prototype.startAd = function() {
 
   // Create a div to contain our ad elements.
   const overlays = this.parameters_.overlays || [];
-
+  const g = document.createElement('div');
+  g.setAttribute("id", "fais");
+  this.slot_.appendChild(g);
   const container = document.createElement('div');
   container.style.display = 'block';
   container.style.position = 'absolute';
   container.style.width = '100%';
   container.style.bottom = '0%';
   container.style.marginBottom = '1%';
-  this.slot_.appendChild(container);
+  g.appendChild(container);
 
   // Create a div to serve as a button to go from a non-linear ad to linear.
   const linearButton = document.createElement('div');
