@@ -148,11 +148,14 @@ VpaidNonLinear.prototype.startAd = function() {
   // Create a div to contain our ad elements.
   const overlays = this.parameters_.overlays || [];
 
-  //New
-
+  // Create
   const g = document.createElement('div');
   g.style.zIndex = '36';
-  g.style.position = 'relative';
+  g.style.position = 'absolute';
+  g.style.margin = '15px';
+  g.style.bottom = '1px';
+  g.style.right = 0;
+  g.style.left = 0;
   this.slot_.appendChild(g);
   const box = document.createElement('div');
   box.style.display = 'table';
