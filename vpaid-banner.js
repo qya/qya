@@ -157,12 +157,14 @@ VpaidNonLinear.prototype.startAd = function() {
 
   // Create a div to serve as a button to go from a non-linear ad to linear.
   const linearButton = document.createElement('div');
-  linearButton.style.background = '#eae6e6';
+  linearButton.style.background = '#cecdcd';
   linearButton.style.display  = 'block';
   linearButton.style.margin = 'auto';
   linearButton.style.textAlign = 'center';
   linearButton.style.color = 'black';
   linearButton.style.width = '20px';
+  linearButton.style.marginBottom = '-20px';
+  linearButton.style.position = 'sticky';
   linearButton.style.borderRadius = '10%';
   linearButton.style.cursor = 'pointer';
   linearButton.style.fontFamily = 'sans-serif';
@@ -204,7 +206,8 @@ VpaidNonLinear.prototype.adClick_ = function() {
  * @private
  */
 VpaidNonLinear.prototype.linearButtonClick_ = function() {
-  this.stopAd.bind(this)
+  const callback = this.callEvent_.bind(this);
+  setTimeout(callback, 1, ['AdStopped']);
 };
 
 
