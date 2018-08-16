@@ -178,7 +178,7 @@ VpaidNonLinear.prototype.startAd = function() {
   const ta = document.createTextNode((new URL(this.parameters_.gourl)).hostname);
   ab.appendChild(ta);
   ab.setAttribute('style', 'bottom: 9px; color: #eade90; font-weight: normal; position: static; left: auto; text-shadow: #000 0 -1px 0; font: bold 11px arial,sans-serif; text-decoration: none;');
-  ab.setAttribute('href', 'google.com');
+  ab.setAttribute('href', this.parameters_.gourl || []);
   container.appendChild(ab);
   //position: absolute; right: 0; top: 0;
   const overlay = document.createElement('div');
