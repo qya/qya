@@ -211,17 +211,11 @@ linearButton.appendChild(xSvg);
   // Create an img tag and populate it with the image passed in to the ad
   // parameters.
   const adImg = document.createElement('img');
+  adImg.setAttribute('id', 'banner-fais');
   adImg.src = overlays[0] || '';
   adImg.style.margin = 'auto';
   adImg.style.display = 'block';
   adImg.style.maxWidth = '100%';
-  window.addEventListener("resize", function(){
-    if(window.screen.width > 768){
-      adImg.style.maxWidth = '768px';
-    }else{
-      adImg.style.maxWidth = '100%';
-    }
-  });
   adImg.style.height = 'auto';
   // adImg.addEventListener('click', this.adClick_.bind(this), false);
   a.appendChild(adImg);
@@ -312,6 +306,11 @@ VpaidNonLinear.prototype.resizeAd = function(width, height, viewMode) {
   this.attributes_['width'] = width;
   this.attributes_['height'] = height;
   this.attributes_['viewMode'] = viewMode;
+  if(width > 728){
+    document.getElementById("banner-fais").style.maxWidth = '728px';
+  }else{
+    document.getElementById("banner-fais").style.maxWidth = '100%';
+  }
   this.updateVideoPlayerSize_();
   this.callEvent_('AdSizeChange');
 };
