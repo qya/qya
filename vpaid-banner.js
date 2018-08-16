@@ -308,10 +308,10 @@ VpaidNonLinear.prototype.resizeAd = function(width, height, viewMode) {
   this.attributes_['viewMode'] = viewMode;
   if(width > 728){
   this.log('resizeAd Banner 728');
-    //document.getElementById("banner-fais").getElementsByTagName("img")[0].style.maxWidth = '728px';
+    document.getElementById("banner-fais").style.maxWidth = '728px';
   }else{
   this.log('resizeAd Banner 100%');
-    //document.getElementById("banner-fais").getElementsByTagName("img")[0].style.maxWidth = '100%';
+    document.getElementById("banner-fais").style.maxWidth = '100%';
   }
   this.updateVideoPlayerSize_();
   this.callEvent_('AdSizeChange');
