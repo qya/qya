@@ -215,8 +215,15 @@ linearButton.appendChild(xSvg);
   adImg.style.margin = 'auto';
   adImg.style.display = 'block';
   adImg.style.maxWidth = '100%';
+  window.addEventListener("resize", function(){
+    if(window.screen.width > 768){
+      adImg.style.maxWidth = '768px';
+    }else{
+      adImg.style.maxWidth = '100%';
+    }
+  });
   adImg.style.height = 'auto';
-  adImg.addEventListener('click', this.adClick_.bind(this), false);
+  // adImg.addEventListener('click', this.adClick_.bind(this), false);
   a.appendChild(adImg);
   /////////////////////////////////////////
   this.callEvent_('AdStarted');
