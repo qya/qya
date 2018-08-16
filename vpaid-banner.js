@@ -214,7 +214,7 @@ linearButton.appendChild(xSvg);
   adImg.src = overlays[0] || '';
   adImg.style.margin = 'auto';
   adImg.style.display = 'block';
-  adImg.style.maxWidth = '728px';
+  adImg.style.maxWidth = '100%';
   adImg.style.height = 'auto';
   adImg.addEventListener('click', this.adClick_.bind(this), false);
   a.appendChild(adImg);
