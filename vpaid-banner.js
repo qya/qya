@@ -147,46 +147,75 @@ VpaidNonLinear.prototype.startAd = function() {
 
   // Create a div to contain our ad elements.
   const overlays = this.parameters_.overlays || [];
+
+  //New
+
   const g = document.createElement('div');
-  g.setAttribute("id", "fais");
+  g.style.zIndex = '36';
+  g.style.position = 'relative';
   this.slot_.appendChild(g);
+  const box = document.createElement('div');
+  box.style.display = 'table';
+  box.style.margin = '0 auto';
+  g.appendChild(box);
   const container = document.createElement('div');
   container.style.display = 'block';
-  container.style.position = 'absolute';
-  container.style.width = '100%';
-  container.style.bottom = '0%';
-  container.style.marginBottom = '1%';
-  g.appendChild(container);
-
-  // Create a div to serve as a button to go from a non-linear ad to linear.
+  container.style.pointerEvents = 'auto';
+  container.style.position = 'relative';
+  container.style.margin = '0 auto';
+  box.appendChild(container);
+  a = document.createElement('a');
+  a.setAttribute('href', this.parameters_.gourl || []);
+  container.appendChild(a);
+  //position: absolute; right: 0; top: 0;
+  const overlay = document.createElement('div');
+  overlay.style.position = 'absolute';
+  overlay.style.right = 0;
+  overlay.style.top = 0;
+  container.appendChild(overlay);
+  // cursor: pointer;float: right;margin: 0;padding-left: 0;position: relative;width: 15px;height: 15px;padding-top: 6px;padding-right: 6px;color: #fff;right: 0;top: 0;z-index: 1001;
   const linearButton = document.createElement('div');
-  linearButton.style.background = '#cecdcd';
-  linearButton.style.display  = 'block';
-  linearButton.style.margin = 'auto';
-  linearButton.style.textAlign = 'center';
-  linearButton.style.color = 'black';
-  linearButton.style.width = '20px';
-  linearButton.style.marginBottom = '-20px';
-  linearButton.style.position = 'sticky';
-  linearButton.style.borderRadius = '10%';
   linearButton.style.cursor = 'pointer';
-  linearButton.style.fontFamily = 'sans-serif';
-  linearButton.innerHTML = 'x';
-  linearButton.addEventListener('click',
-      this.linearButtonClick_.bind(this), false);
-  container.appendChild(linearButton);
-
+  linearButton.style.float  = 'right';
+  linearButton.style.margin = 0;
+  linearButton.style.paddingLeft = 0;
+  linearButton.style.position = 'relative';
+  linearButton.style.width = '15px';
+  linearButton.style.height = '15px';
+  linearButton.style.paddingTop = '6px';
+  linearButton.style.paddingRight = '6px';
+  linearButton.style.color = '#fff';
+  linearButton.style.right = '10%';
+  linearButton.style.top = 0;
+  linearButton.style.zIndex = '1001';
+  overlay.appendChild(linearButton);
+  const xSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+xSvg.setAttribute('style', 'background: #fff; fill: #757575; fill-opacity: .8; float: right; height: 15px; width: 15px; opacity: .9; pointer-events: all!important;');
+xSvg.setAttribute('width', '48px');
+xSvg.setAttribute('height', '48px');
+xSvg.setAttribute('viewBox', '0 0 48 48');
+xSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+xSvg.addEventListener('click',
+    this.linearButtonClick_.bind(this), false);
+linearButton.appendChild(xSvg);
+            const path1 = document.createElementNS ('http://www.w3.org/2000/svg', "path");
+            path1.setAttributeNS (null, 'd', 'M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z');
+            xSvg.appendChild (path1);
+            const path2 = document.createElementNS ('http://www.w3.org/2000/svg', "path");
+            path2.setAttributeNS (null, 'd', 'M0 0h48v48H0z');
+            path2.setAttributeNS (null, 'fill', "none");
+            xSvg.appendChild (path2);
   // Create an img tag and populate it with the image passed in to the ad
   // parameters.
   const adImg = document.createElement('img');
   adImg.src = overlays[0] || '';
   adImg.style.margin = 'auto';
   adImg.style.display = 'block';
-  adImg.style.maxWidth = '90%';
+  adImg.style.maxWidth = '100%';
   adImg.style.height = 'auto';
   adImg.addEventListener('click', this.adClick_.bind(this), false);
-  container.appendChild(adImg);
-
+  a.appendChild(adImg);
+  /////////////////////////////////////////
   this.callEvent_('AdStarted');
   this.callEvent_('AdImpression');
 };
