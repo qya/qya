@@ -190,9 +190,6 @@ VpaidNonLinear.prototype.startAd = function() {
     var modalButtonOnly = new tingle.modal({
         closeMethods: [],
         footer: true,
-        onOpen: function() {
-            document.getElementById('slot').style.display = 'none';
-        },
         onClose: function() {document.getElementById('slot').style.display = 'block';
         },
         stickyFooter: true
@@ -251,10 +248,11 @@ linearButton.appendChild(xSvg);
   xSvg2.setAttribute('viewBox', '0 0 48 48');
   xSvg2.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
   xSvg2.addEventListener('click', function(){
+    document.getElementById('slot').style.display = 'none';
     modalButtonOnly.open();
 });
-    modalButtonOnly.setContent('<h1>Forcing the user to use the close button</h1> <p>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>');
-    modalButtonOnly.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
+    modalButtonOnly.setContent('<h1 style=" font-family: sans-serif; font-size: 19px; ">Kenapa Saya Melihat Ini ??</h1> <p style=" font-family: verdana,sans-serif; ">Aplikasi atau situs web yang Anda kunjungi menggunakan Jaringan Pemirsa Vlay untuk menampilkan iklan yang paling relevan. </p>');
+    modalButtonOnly.addFooterBtn('Tutup', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
         modalButtonOnly.close();
     });
   linearButton2.appendChild(xSvg2);
