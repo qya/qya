@@ -190,6 +190,11 @@ VpaidNonLinear.prototype.startAd = function() {
     var modalButtonOnly = new tingle.modal({
         closeMethods: [],
         footer: true,
+        onOpen: function() {
+            document.getElementById('slot').style.display = 'none';
+        },
+        onClose: function() {document.getElementById('slot').style.display = 'block';
+        },
         stickyFooter: true
     });
   const linearButton = document.createElement('div');
