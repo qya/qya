@@ -187,23 +187,11 @@ VpaidNonLinear.prototype.startAd = function() {
   overlay.style.right = 0;
   overlay.style.top = 0;
   container.appendChild(overlay);
-  var modalInfo = new tingle.modal({
-        onClose: function() {
-            console.log('close');
-        },
-        onOpen: function() {
-            console.log('open');
-        },
-        beforeOpen: function() {
-            console.log('before open');
-        },
-        beforeClose: function() {
-            console.log('before close');
-            return true;
-        },
-        cssClass: ['class1', 'class2']
+    var modalButtonOnly = new tingle.modal({
+        closeMethods: [],
+        footer: true,
+        stickyFooter: true
     });
-    modalInfo.setContent('<h1>Ads Info</h1>');
   const linearButton = document.createElement('div');
   linearButton.style.cursor = 'pointer';
   linearButton.style.float  = 'right';
@@ -258,8 +246,12 @@ linearButton.appendChild(xSvg);
   xSvg2.setAttribute('viewBox', '0 0 48 48');
   xSvg2.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
   xSvg2.addEventListener('click', function(){
-    modalInfo.open();
+    modalButtonOnly.open();
 });
+    modalButtonOnly.setContent('<h1>Forcing the user to use the close button</h1> <p>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>');
+    modalButtonOnly.addFooterBtn('Cancel', 'tingle-btn tingle-btn--default tingle-btn--pull-right', function(){
+        modalButtonOnly.close();
+    });
   linearButton2.appendChild(xSvg2);
             const path11 = document.createElementNS ('http://www.w3.org/2000/svg', "path");
             path11.setAttributeNS (null, 'd', 'M22 34h4V22h-4v12zm2-30C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16zm-2-22h4v-4h-4v4z');
