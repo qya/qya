@@ -158,7 +158,9 @@ VpaidNonLinear.prototype.startAd = function() {
 
   // Create a div to contain our ad elements.
   const overlays = this.parameters_.overlays || [];
-
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+}, false);
   // Create
   const g = document.createElement('div');
   g.style.zIndex = '36';
