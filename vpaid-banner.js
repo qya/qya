@@ -193,7 +193,7 @@ document.addEventListener("contextmenu", function(e){
     var modalButtonOnly = new tingle.modal({
         closeMethods: [],
         footer: true,
-        onClose: function() {document.getElementById('banner-vpaid').style.display = 'block';
+        onClose: function() {document.getElementById('banner-vpaid').style.display = 'table';
         },
         stickyFooter: true
     });
