@@ -171,6 +171,7 @@ document.addEventListener("contextmenu", function(e){
   g.style.left = 0;
   this.slot_.appendChild(g);
   const box = document.createElement('div');
+  box.setAttribute('id', 'banner-vpaid');
   box.style.display = 'table';
   box.style.margin = '0 auto';
   g.appendChild(box);
@@ -192,7 +193,7 @@ document.addEventListener("contextmenu", function(e){
     var modalButtonOnly = new tingle.modal({
         closeMethods: [],
         footer: true,
-        onClose: function() {document.getElementById('slot').style.display = 'block';
+        onClose: function() {document.getElementById('banner-vpaid').style.display = 'block';
         },
         stickyFooter: true
     });
@@ -250,7 +251,7 @@ linearButton.appendChild(xSvg);
   xSvg2.setAttribute('viewBox', '0 0 48 48');
   xSvg2.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
   xSvg2.addEventListener('click', function(){
-    document.getElementById('slot').style.display = 'none';
+    document.getElementById('banner-vpaid').style.display = 'none';
     modalButtonOnly.open();
 });
     modalButtonOnly.setContent('<h1 style=" font-family: sans-serif; font-size: 19px; ">Kenapa Saya Melihat Ini ??</h1> <p style=" font-family: verdana,sans-serif; ">Aplikasi atau situs web yang Anda kunjungi menggunakan Vlay Network Ads untuk menampilkan iklan yang paling relevan. </p>');
