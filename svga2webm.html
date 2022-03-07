@@ -122,6 +122,8 @@ text = text.substring(text.lastIndexOf("\\") + 1, text.length);
                     player.onFrame(function(frame){
                         if(frame+1 == videoItem.frames){
                         recorder.stop();
+                        player.loops = 1;
+                        player.startAnimation();
                         }
                     })
                     }, function(error){
