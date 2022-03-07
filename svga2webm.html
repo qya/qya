@@ -55,6 +55,7 @@
 <!-- <script src="/assets/script.js?v=100032101"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
 <script>
+    var secol = false;
     var data = [];
     var frames = 0;
     var sizes = {};
@@ -90,15 +91,15 @@ text = text.substring(text.lastIndexOf("\\") + 1, text.length);
      });
             var result = $('div#result');
             if (window.FileReader && window.Blob) {
-      data = [];
                 $('span#submit').click(function () {
+      data = [];
+      secol = false;
                     $('#result2').html('');
                     result.show();
                     var files = $('input#file').get(0).files;
                     if (files.length > 0) {
                         var file = files[0];
                         var fileReader = new FileReader();
-                      console.log(file.type);
                         fileReader.addEventListener("load", function () {
                           
     loadMime(file, function(type) {
@@ -114,7 +115,7 @@ text = text.substring(text.lastIndexOf("\\") + 1, text.length);
                     var stream = canvas.captureStream();
                     var recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
                     parser.load(base64String, function(videoItem) {
-                        recorder.start();
+                        if(secol == false) recorder.start();
                         sizes = videoItem.videoSize;
                         frames = videoItem.frames;
                         player.loops = 1;
@@ -122,9 +123,10 @@ text = text.substring(text.lastIndexOf("\\") + 1, text.length);
                         player.startAnimation();
                     player.onFrame(function(frame){
                         if(frame+1 == videoItem.frames){
-                        recorder.stop();
+                          if(secol == false)  recorder.stop();
                         player.loops = 1;
                         player.startAnimation();
+                        secol = true;
                         }
                     })
                     }, function(error){
@@ -143,7 +145,8 @@ text = text.substring(text.lastIndexOf("\\") + 1, text.length);
     id: 'video',
     src: url,
     type: 'video/mp4',
-    controls: true
+    controls: true,
+    autoplay: true,
 });
 video.appendTo($('#result2'));
   }
