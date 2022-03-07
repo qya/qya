@@ -90,6 +90,7 @@ text = text.substring(text.lastIndexOf("\\") + 1, text.length);
      });
             var result = $('div#result');
             if (window.FileReader && window.Blob) {
+      data = [];
                 $('span#submit').click(function () {
                     $('#result2').html('');
                     result.show();
