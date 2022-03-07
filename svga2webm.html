@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SVGA to WEBM - Qya</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel=icon type=image/png sizes=32x32 href=https://fais.tech/favicon-32x32.png>
+<link href="/style.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style type="text/css">
+	.cm-s-default{
+		border: #ced4da57;
+    border-style: groove;
+	}
+    .svgd{
+    max-width: 500px;
+    border: 1px solid rgba(0,0,155,.1);
+    min-height: 230px;
+    margin: 30px auto 0;
+    display: grid;
+    place-content: start center;
+    }
+    .preview-svga{
+        display: none;
+    }
+</style>
+</head>
+<body>
+    
+  <div class="container px-4 py-5" id="hanging-icons">
+    <h2 class="pb-2 border-bottom">SVGA 2 WEBM</h2>
+    <div class="row g-4 py-5 row-cols-12">
+      <div class="col">
+      	<center><i class="icls" data-feather="package"></i> <i class="icls" data-feather="arrow-right"></i> <i class="icls" data-feather="image"></i></center>
+  <div class="form-group">
+      <label for="formFile" class="form-label mt-4">Choose the files</label>
+      <div id="label-upload" style="display:none;"></div>
+        <input type="file"  class="form-control" id="file">
+    </div>
+  </div>
+  <div class="d-grid gap-2">
+  <span class="btn btn-lg btn-primary" id="submit"> Preview </span>
+</div>
+  <div class="form-group">
+<div id="result"></div>
+      </div>
+<div class="preview-svga"><div class="svgd" id="svgpre" ></div>
+</div>
+<div class="form-group">
+<div id="result2" style="display: none;text-align: center;"></div>
+    </div>
+    </div>
+  </div>
+
+</body>
+<!-- <script src="/assets/script.js?v=100032101"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
+<script>
+    var data = [];
+    var frames = 0;
+    var sizes = {};
+    function loadMime(file, callback) {
+    
+    var blob = file.slice(0, 4); //read the first 4 bytes of the file
+
+    var reader = new FileReader();
+    reader.onloadend = function(e) {
+        if (e.target.readyState === FileReader.DONE) {
+                            var arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+                            var header = '';
+                            for (var i = 0; i < arr.length; i++) {
+                                header += arr[i].toString(16);
+                            }
+                            var type = 'unknown';
+                            switch (header.substr(0, 4)) {
+                                case '789c':
+                                    type = 'image/svga';
+                                    break;
+                            }
+            return callback(type);
+        }
+    };
+    reader.readAsArrayBuffer(blob);
+}
+    $(function () {
+        
+    $("input:file").change(function (){
+       var text = $(this).val();
+text = text.substring(text.lastIndexOf("\\") + 1, text.length);
+       $("#label-upload").html(text);
+     });
+            var result = $('div#result');
+            if (window.FileReader && window.Blob) {
+                $('span#submit').click(function () {
+                    $('#result2').html('');
+                    result.show();
+                    var files = $('input#file').get(0).files;
+                    if (files.length > 0) {
+                        var file = files[0];
+                        var fileReader = new FileReader();
+                      console.log(file.type);
+                        fileReader.addEventListener("load", function () {
+                          
+    loadMime(file, function(type) {
+                            if (type == 'unknown') {
+                                alert('Mime type detected: ' + type + '. Does not match file extension.');
+                            } else {
+                            // convert file to base64 string using reader.result
+                            var base64String = fileReader.result.replace('data:application/octet-stream;base64','data:svga/2.0;base64');
+                            $('.preview-svga').show();
+                    var player = new SVGA.Player('#svgpre');
+                    var parser = new SVGA.Parser('#svgpre');
+                    let canvas = document.querySelector("canvas");
+                    var stream = canvas.captureStream();
+                    var recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+                    parser.load(base64String, function(videoItem) {
+                        recorder.start();
+                        sizes = videoItem.videoSize;
+                        frames = videoItem.frames;
+                        player.loops = 1;
+                        player.setVideoItem(videoItem);
+                        player.startAnimation();
+                    player.onFrame(function(frame){
+                        if(frame+1 == videoItem.frames){
+                        recorder.stop();
+                        }
+                    })
+                    }, function(error){
+                      $('#loader').html('Error : '+error);
+                    })
+                    
+    recorder.ondataavailable = function(event) {
+    if (event.data && event.data.size) {
+      data.push(event.data);
+    }
+  };
+  recorder.onstop = () => {
+        $('#result2').show();
+    var url = URL.createObjectURL(new Blob(data, { type: "video/webm" }));
+    var video = $('<video />', {
+    id: 'video',
+    src: url,
+    type: 'video/mp4',
+    controls: true
+});
+video.appendTo($('#result2'));
+  }
+                        }
+}); 
+                        }, false);
+                    if (file) {
+                        fileReader.readAsDataURL(file);
+                    }
+                    }else{
+                      alert('Please choose the files')
+                    }
+                }
+                )}
+            
+        });
+</script>
+</html>
