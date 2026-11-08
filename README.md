@@ -12,4 +12,4 @@ I'm a web developer based in Indonesia
 
 ---
 
-![***](https://raw.githubusercontent.com/qya/qya/output/github-contribution-grid-snake.svg)
+![***](https://snake-worker.artz.workers.dev/qya.svg)
